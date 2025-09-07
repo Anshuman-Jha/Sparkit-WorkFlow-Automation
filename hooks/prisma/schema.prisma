@@ -25,7 +25,7 @@ model User {
 model Spark {
   id        String     @id @default(uuid())
   triggerId String
-  trigger   Trigger? // stors data of type trigger dataabase 
+  trigger   Trigger? 
   actions   Action[]
   SparkRun  SparkRun[]
 }
@@ -59,7 +59,7 @@ model Action {
 model AvailableAction {
   id      String   @id @default(uuid())
   name    String
-  actions Action[] //Actions/ Available Actions is array of Action 
+  actions Action[] 
 }
 
 
