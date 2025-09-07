@@ -43,7 +43,7 @@ model Trigger {
 model AvailableTriggers {
   id       String    @id @default(uuid())
   name     String
-  triggers Trigger[] //This Triggers is Array of Trigger
+  triggers Trigger[] 
 }
 
 
@@ -68,7 +68,7 @@ model SparkRun {
   sparkId        String
   metadata       Json
   spark          Spark           @relation(fields: [sparkId], references: [id])
-  SparkRunOutbox SparkRunOutbox? // Data Type is whole Column of DataTable i.e SparkRunOutbox
+  SparkRunOutbox SparkRunOutbox? 
 }
 
 
