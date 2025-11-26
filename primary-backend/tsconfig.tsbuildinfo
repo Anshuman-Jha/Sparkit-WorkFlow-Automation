@@ -1,0 +1,1 @@
+{"root":["./src/authmiddleware.ts","./src/index.ts","./src/prisma.config.ts","./src/db/index.ts","./src/router/actionrouter.ts","./src/router/sparkrouter.ts","./src/router/triggerrouter.ts","./src/router/userrouter.ts","./src/types/config.ts","./src/types/index.ts"],"version":"5.9.3"}

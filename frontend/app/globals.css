@@ -1,0 +1,8 @@
+/* app/globals.css */
+
+@config "../tailwind.config.ts";
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

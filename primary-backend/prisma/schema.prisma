@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String  @unique
+  password String
+  sparks   Spark[] // one user will have many spark create d 
+}
+
+// whenever user creates a spark => It have bunch of trigger and actions
+model Spark {
+  id        String     @id @default(uuid())
+  triggerId String
+  trigger   Trigger? // stors data of type trigger dataabase 
+  actions   Action[]
+  SparkRun  SparkRun[]
+  user      User?      @relation(fields: [userId], references: [id])
+  userId    Int?
+
+  @@index([userId])
+}
+
+// Each trigger is of one available trigger => every trigger is of type AvailableTriggers
+// Every Trigger Have Some Metadata 
+model Trigger {
+  id        String            @id @default(uuid())
+  sparkId   String            @unique
+  triggerId String            @unique
+  type      AvailableTriggers @relation(fields: [triggerId], references: [id])
+  spark     Spark             @relation(fields: [sparkId], references: [id])
+}
+
+// This Available Trigger which basically starts Sequence of Actions 
+model AvailableTriggers {
+  id       String    @id @default(uuid())
+  name     String
+  image    String
+  triggers Trigger[] //This Triggers is Array of Trigger
+}
+
+// Every Action is of type availableAction 
+// every available action have it's own metadata => like gmailId
+model Action {
+  id       String          @id @default(uuid())
+  sparkId  String
+  spark    Spark           @relation(fields: [sparkId], references: [id])
+  actionId String
+  type     AvailableAction @relation(fields: [actionId], references: [id])
+
+  @@index([sparkId])
+}
+
+// Ex AvailableAction => Send mail => Metadata => Which Email of user
+// // every available action have it's own metadata => like gmailId
+model AvailableAction {
+  id      String   @id @default(uuid())
+  name    String
+  image   String
+  actions Action[] //Actions/ Available Actions is array of Action 
+}
+
+model SparkRun {
+  id             String          @id @default(uuid())
+  sparkId        String
+  metadata       Json
+  spark          Spark           @relation(fields: [sparkId], references: [id])
+  SparkRunOutbox SparkRunOutbox? // Data Type is whole Column of DataTable i.e SparkRunOutbox
+
+  @@index([sparkId])
+}
+
+model SparkRunOutbox {
+  id         String   @id @default(uuid())
+  sparkRunId String   @unique
+  sparkRun   SparkRun @relation(fields: [sparkRunId], references: [id])
+}
