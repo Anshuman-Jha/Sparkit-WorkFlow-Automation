@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "npx tsc -b && node dist/index.js",
     "start": "tsc -b && node --trace-warnings dist/index.js",
     "build": "tsc -b"
   },
@@ -12,7 +13,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.0.1",
+    "@prisma/client": "^7.0.1",
+    "@solana/web3.js": "^1.98.4",
+    "@types/nodemailer": "^7.0.4",
+    "base58": "^2.0.1",
     "kafkajs": "^2.2.4",
+    "nodemailer": "^7.0.11",
+    "prisma": "^7.0.1",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.6"
   }
 }

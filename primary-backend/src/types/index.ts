@@ -21,4 +21,4 @@ export const SparkCreateSchema = z.object({
         availableactionId: z.string(),
         actionMetadata: z.any().optional()
     }))
-});                                                                                                              
+});      
